@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "Tenko 点呼アラート",
+  "version": "1.0.29",
+  "description": "Tenkoで点呼が入った際に、設定した回数と速度で音声通知を再生します。",
+  "permissions": ["tts", "storage", "alarms", "notifications"],
+  "host_permissions": ["https://www.TENKO_SERVICE.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Tenko 点呼アラート",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.TENKO_SERVICE.com/pc/*"],
+      "js": ["page-keep-active.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://www.TENKO_SERVICE.com/pc/*"],
+      "js": ["keep-active-controller.js"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["https://www.TENKO_SERVICE.com/pc/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
